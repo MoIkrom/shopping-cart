@@ -57,14 +57,16 @@
                   </tr>
                   <?php $no++ ?>
                   @endforeach
+                  @foreach ($data as $item)
                   <tr >
                     <td></td>
                     <td></td>
                     <td></td>
                     <td class="text-dark fw-bold " style="font-size: 20px">TOTAL</td>
-                    <td class="text-dark fw-bold " style="font-size: 20px"> Rp {{number_format(floatval($item->cart->total), 0, ',', '.')}}</td>
+                    <td class="text-dark fw-bold " style="font-size: 20px"> Rp {{number_format(floatval($item->total), 0, ',', '.')}}</td>
                     <td></td>
                   </tr>
+                  @endforeach
               
                 </tbody>
          

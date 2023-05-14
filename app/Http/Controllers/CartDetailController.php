@@ -54,7 +54,9 @@ class CartDetailController extends Controller
     public function show($id)
     {
         $data = Product::where('id', $id)->first();
-        return view('cartDetail.index')->with('data', $data);
+        return view('cartDetail.index')->with(
+            'data', $data
+        );
     }
 
     /**
