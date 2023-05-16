@@ -42,10 +42,10 @@
                       <td  class="text-dark fw-bold ">Rp {{number_format(floatval($item->product->price), 0, ',', '.')}}</td>
                       <td  class="text-dark fw-bold ">
                         <div class="d-flex justify-content-center">
-                          <input type="number" class="form-control border-0 bg-transparent w-50  outline-none text-center" value={{$item->quantity}}>
+                          <input type="text" disabled class="text-dark fw-bold form-control border-0 bg-transparent w-50  outline-none text-center" value={{$item->quantity}}>
                         </div>
                       </td>
-                      <td  class="text-dark fw-bold ">Rp {{number_format(floatval($item->total), 0, ',', '.')}}</td>
+                      <td  class="text-dark fw-bold ">Rp {{number_format(floatval($item->subtotal), 0, ',', '.')}}</td>
                       <td  class="text-dark fw-bold ">   
                         
                         <form onsubmit="return confirm('Anda Yakin Ingin Menghapus Product ini')" action="{{url('cart-detail/'.$item->id)}}" method="POST">
@@ -55,15 +55,43 @@
                     </form></td>
                 
                   </tr>
+               
+                  <tr >
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
                   <?php $no++ ?>
                   @endforeach
-                  @foreach ($data as $item)
+              
+                  <tr >
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                      <form action="{{ url('cart/apply-discount') }}" method="POST">
+                          @csrf
+                          <div class="d-flex gap-2">
+    
+                            <input placeholder="Discount Code" class="p-2" style="border-radius: 10px" type="text" name="discount_code">
+                            <button style="border-radius: 10px" type="submit">Apply Discount</button>
+                          </div>
+                      </form></td>
+                    <td></td>
+                  </tr>
+                  
+                  @foreach ($cart as $carts)
                   <tr >
                     <td></td>
                     <td></td>
                     <td></td>
                     <td class="text-dark fw-bold " style="font-size: 20px">TOTAL</td>
-                    <td class="text-dark fw-bold " style="font-size: 20px"> Rp {{number_format(floatval($item->total), 0, ',', '.')}}</td>
+                    <td class="text-dark fw-bold " style="font-size: 20px">                      
+                      Rp {{number_format(floatval($carts->total), 0, ',', '.')}}   </td>
                     <td></td>
                   </tr>
                   @endforeach
@@ -71,6 +99,12 @@
                 </tbody>
          
             </table>
+            <div class="d-flex justify-content-end mt-4 me-3"> 
+              <form action="{{url('cart-detail/checkout')}}" method="POST">
+                @csrf
+                <button class="btn btn-success" style="height: 50px; width: 150px"> Checkout</button>
+            </form>
+            </div>
             {{$data->withQueryString()->links()}}
 </div>
       <!-- AKHIR DATA -->

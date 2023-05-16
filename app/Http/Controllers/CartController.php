@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\CartDetail;
 use Illuminate\Http\Request;
 
@@ -22,8 +23,9 @@ class CartController extends Controller
         // } else {
 
         $data = CartDetail::orderBy('created_at', 'desc')->paginate($Baris);
+        $cart = Cart::orderBy('created_at', 'desc')->get();
         // }
-        return view('cart.index')->with('data', $data);
+        return view('cart.index')->with('data', $data)->with('cart', $cart);
         // return "Hello ini Cart";
     }
 
